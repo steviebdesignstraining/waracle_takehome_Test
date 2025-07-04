@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "types": ["@playwright/test"],
+      "module": "es2022",
+      "moduleResolution":"bundler",
+      "esModuleInterop": true
+    }
+  }
+  

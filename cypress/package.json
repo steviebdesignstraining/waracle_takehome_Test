@@ -1,0 +1,43 @@
+{
+    "name": "qa-hiring-iliptv-cypress-tests",
+    "version": "1.0.0",
+    "description": "Automated tests for SauceDemo using Cypress with TypeScript",
+    "main": "index.js",
+    "scripts": {
+        "cypress:open": "cypress open",
+        "cypress:run": "cypress run",
+        "test": "cypress run",
+        "test:headed": "cypress run --headed",
+        "test:chrome": "cypress run --browser chrome",
+        "test:firefox": "cypress run --browser firefox",
+        "test:edge": "cypress run --browser edge",
+        "test:main": "cypress run --spec 'cypress/e2e/main.cy.ts'",
+        "test:auth": "cypress run --spec 'cypress/e2e/main.cy.ts' --grep 'Authentication Tests'",
+        "test:cart": "cypress run --spec 'cypress/e2e/main.cy.ts' --grep 'Shopping Cart Tests'",
+        "test:performance": "cypress run --spec 'cypress/e2e/main.cy.ts' --grep 'Performance Tests'",
+        "test:smoke": "cypress run --spec 'cypress/e2e/smoke.cy.ts'",
+        "test:parallel": "cypress run --record --parallel",
+        "test:debug": "cypress run --headed --no-exit",
+        "validate:types": "tsc --noEmit",
+        "clean": "rm -rf cypress/screenshots cypress/videos cypress/downloads"
+    },
+    "keywords": [
+        "cypress",
+        "testing",
+        "e2e",
+        "qa",
+        "typescript",
+        "automation",
+        "saucedemo"
+    ],
+    "author": "Stephen Bennett",
+    "license": "ISC",
+    "devDependencies": {
+        "@faker-js/faker": "^9.9.0",
+        "@types/node": "^24.0.10",
+        "allure-cypress": "^3.3.0",
+        "cypress": "^13.6.2",
+        "dotenv": "^17.0.1",
+        "typescript": "^5.8.3"
+    }
+}

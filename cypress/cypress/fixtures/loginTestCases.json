@@ -1,0 +1,37 @@
+[{
+        "description": "Valid user login",
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "expectedResult": "success"
+    },
+    {
+        "description": "Invalid user login - locked out",
+        "username": "locked_out_user",
+        "password": "secret_sauce",
+        "expectedResult": "fail"
+    },
+    {
+        "description": "Invalid user login - problem user",
+        "username": "problem_user",
+        "password": "wrong_password",
+        "expectedResult": "fail"
+    },
+    {
+        "description": "Empty username",
+        "username": " ",
+        "password": "secret_sauce",
+        "expectedResult": "fail"
+    },
+    {
+        "description": "Valid admin login - error user",
+        "username": "error_user",
+        "password": "secret_sauce",
+        "expectedResult": "success"
+    },
+    {
+        "description": "Valid admin login - visual user",
+        "username": "visual_user",
+        "password": "secret_sauce",
+        "expectedResult": "success"
+    }
+]

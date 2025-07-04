@@ -1,0 +1,45 @@
+name: Playwright Tests with Allure
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright Tests with Allure
+        run: |
+          export PLAYWRIGHT_JUNIT_OUTPUT_NAME=test-results/results.xml
+          npx playwright test --reporter=line,allure-playwright
+        env:
+          CI: true
+
+      - name: Generate Allure Report
+        run: |
+          npx allure generate --clean
+          mv allure-report public
+
+      - name: Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: playwright

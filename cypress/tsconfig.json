@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"],
+    "typeRoots": ["node_modules/@types"],
+    "allowJs": true,
+    "strict": true,
+    "module": "es2015",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"],
+      "@fixtures/*": ["cypress/fixtures/*"],
+      "@pages/*": ["cypress/pages/*"],
+      "@support/*": ["cypress/support/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "cypress/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "cypress/downloads",
+    "cypress/screenshots",
+    "cypress/videos",
+    "cypress/support/commands.js",
+    "cypress/support/e2e.js"
+    ]
+  }

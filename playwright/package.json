@@ -1,0 +1,29 @@
+{
+    "name": "playwright",
+    "version": "1.0.0",
+    "description": "Take home test for Waracle QA role",
+    "main": "index.js",
+    "scripts": {},
+    "keywords": [
+        "Playwright",
+        "testing",
+        "e2e",
+        "qa",
+        "typescript",
+        "automation",
+        "saucedemo"
+
+    ],
+    "author": "Stephen Bennett",
+    "license": "ISC",
+    "devDependencies": {
+        "@playwright/test": "^1.53.2",
+        "@types/node": "^24.0.10",
+        "allure-playwright": "^3.3.0"
+    },
+    "dependencies": {
+        "@dotenvx/dotenvx": "^1.45.2",
+        "@faker-js/faker": "^9.9.0",
+        "dotenv": "^17.0.1"
+    }
+}
