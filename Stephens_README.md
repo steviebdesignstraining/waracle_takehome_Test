@@ -2,7 +2,7 @@
 Hi there! Before we have lift-off into the code-verse, I would like to take the time to introduce myself to you!! 
 
 
-<img src=">
+<img src="Stephen_.png"alt="Stephen Bennett" width="150" height="150">
 My name is Stephen Bennett and I want to thank you for taking the time the time to consider me for the QA role that your team is hiring for. 
 
 I have been testing for over 12 years and I enjoy working in the development space. I am a bit of a LoonieToons, ambivert, friendly, positive and optimistic. I am sociable and I can work well with different personalities and can adapt in different environments. 
