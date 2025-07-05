@@ -1,0 +1,3 @@
+Valid login successful
+Cart is empty, badge is hidden.
+Checkout completed successfully, this is a bug as the flow should not complete with an empty cart.
