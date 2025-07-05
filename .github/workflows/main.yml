@@ -1,55 +1,45 @@
-name: Allure Report
-run-name: ${{ github.actor }} is creating Allure report 🚀
+name: Playwright Tests with Allure
 
 on:
   push:
-    branches-ignore:
-      - '!main'
-
-permissions: write-all
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  autotests:
-    name: Run tests and generate Allure Report 
+  test:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-
-      - name: Clone repository
-        uses: actions/checkout@v4.2.2
-
-      - name: Set up Node 20
-        uses: actions/setup-node@v4.1.0
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 18
 
-      - name: Install npm
-        run: npm install
+      - name: Install Dependencies
+        run: npm ci
 
-      - run: npm test
-        continue-on-error: true
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
-      - name: Setup Allure History
-        uses: actions/checkout@v4.2.2
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
+      - name: Run Playwright Tests with Allure
+        run: |
+          export PLAYWRIGHT_JUNIT_OUTPUT_NAME=test-results/results.xml
+          npx playwright test --reporter=line,allure-playwright
+        env:
+          CI: true
 
       - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1.11
-        if: always()
-        with:
-          allure_results: ./out/allure-results
-          allure_history: allure-history
+        run: |
+          npx allure generate --clean
+          mv allure-report public
 
-      - name: Publish Allure Report
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4.0.0
+      - name: Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: ./public
+          destination_dir: playwright
