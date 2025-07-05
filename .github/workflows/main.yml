@@ -21,23 +21,19 @@ jobs:
       working-directory: playwright
       run: npm ci
 
-    - name: Build project (if applicable)
-      working-directory: playwright
-      run: npm run build --if-present
-
-    - name: Run tests
+    - name: Run Playwright tests (with Allure)
       working-directory: playwright
       run: npm test
 
     - name: Get Allure history
       uses: actions/checkout@v3
+      if: always()
+      continue-on-error: true
       with:
         ref: gh-pages
         path: gh-pages
-        continue-on-error: true
 
-
-    - name: Generate Allure Report
+    - name: Generate Allure report
       uses: simple-elf/allure-report-action@master
       if: always()
       id: allure-report
