@@ -147,7 +147,7 @@ npm run clean             # Clean screenshots/videos
 
 
 ### Headless Mode (CI/CD)
-
+[![Deploy static content to Pages](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml/badge.svg)](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml)
 
 ## 📝 Test Scenarios
 ### Authentication Tests
