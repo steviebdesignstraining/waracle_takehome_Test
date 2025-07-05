@@ -31,11 +31,11 @@ jobs:
 
     - name: Get Allure history
       uses: actions/checkout@v3
-      if: always()
-      continue-on-error: true
       with:
         ref: gh-pages
         path: gh-pages
+        continue-on-error: true
+
 
     - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
