@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "description": "Take home test for Waracle QA role",
     "main": "index.js",
-    "scripts": {},
+    "scripts": {
+         "test": "npx playwright test --reporter=line,allure-playwright"
+    },
     "keywords": [
         "Playwright",
         "testing",
