@@ -21,6 +21,10 @@ jobs:
       working-directory: playwright
       run: npm ci
 
+    - name: Install Playwright browsers
+      working-directory: playwright
+      run: npx playwright install --with-deps
+
     - name: Run Playwright tests (with Allure)
       working-directory: playwright
       run: npm test
