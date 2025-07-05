@@ -5,18 +5,29 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 18
         cache: 'npm'
+        cache-dependency-path: playwright/package-lock.json
 
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Install dependencies
+      working-directory: playwright
+      run: npm ci
+
+    - name: Build project (if applicable)
+      working-directory: playwright
+      run: npm run build --if-present
+
+    - name: Run tests
+      working-directory: playwright
+      run: npm test
 
     - name: Get Allure history
       uses: actions/checkout@v3
@@ -26,17 +37,17 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
-    - name: Allure Report action from marketplace
+    - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
       if: always()
       id: allure-report
       with:
-        allure_results: allure-results
+        allure_results: playwright/allure-results
         gh_pages: gh-pages
-        allure_report: allure-report
+        allure_report: playwright/allure-report
         allure_history: allure-history
 
-    - name: Deploy report to Github Pages
+    - name: Deploy Allure Report to GitHub Pages
       if: always()
       uses: peaceiris/actions-gh-pages@v3
       with:
