@@ -1,45 +1,99 @@
-name: Playwright Tests with Allure
+name: Playwright + GitHub Pages Deployment
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   test:
+    name: Run Playwright Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
+          cache-dependency-path: playwright/package-lock.json
 
-      - name: Install Dependencies
+      - name: Install dependencies
+        working-directory: playwright
         run: npm ci
 
-      - name: Install Playwright Browsers
+      - name: Install Playwright browsers
+        working-directory: playwright
         run: npx playwright install --with-deps
 
-      - name: Run Playwright Tests with Allure
-        run: |
-          export PLAYWRIGHT_JUNIT_OUTPUT_NAME=test-results/results.xml
-          npx playwright test --reporter=line,allure-playwright
-        env:
-          CI: true
+      - name: Run Playwright tests (with Allure)
+        working-directory: playwright
+        run: npm test
 
-      - name: Generate Allure Report
-        run: |
-          npx allure generate --clean
-          mv allure-report public
+  generate-report:
+    name: Generate Allure Report
+    runs-on: ubuntu-latest
+    needs: test
 
-      - name: Deploy Allure Report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Get Allure history
+        uses: actions/checkout@v3
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure report
+        uses: simple-elf/allure-report-action@master
+        id: allure-report
+        with:
+          allure_results: playwright/allure-results
+          gh_pages: gh-pages
+          allure_report: playwright/allure-report
+          allure_history: allure-history
+
+      - name: Deploy Allure Report to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          destination_dir: playwright
+          publish_branch: gh-pages
+          publish_dir: allure-history
+
+  deploy-static:
+    name: Deploy Static Site to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: generate-report
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static content
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'  # or set a subdirectory if you're deploying only part of the repo
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
