@@ -304,7 +304,8 @@ Both projects are configured with robust TypeScript settings:
 ### Playwright workflow 
   * Please review Playwright CI/CD pipeline; this was only created for Playwright only but the same principles would be replicated for Cypress. https://github.com/steviebdesignstraining/waracle_takehome_Test/actions
 
-  * Please see status of workflow run [![Playwright + GitHub Pages Deployment](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml/badge.svg)](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml) | [![Playwright + GitHub Pages Deployment](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml/badge.svg?event=workflow_run)](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml)
+  * Please see status of workflow run [![Playwright + GitHub Pages Deployment](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml/badge.svg)](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml)
+  * [![Playwright + GitHub Pages Deployment](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml/badge.svg?event=workflow_run)](https://github.com/steviebdesignstraining/waracle_takehome_Test/actions/workflows/main.yml)
 
 ### Parallel Execution (Cypress)
 
