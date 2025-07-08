@@ -1,0 +1,2 @@
+Valid login successful
+Cart is empty, badge is hidden.
