@@ -75,6 +75,23 @@ jobs:
           cd playwright
           allure generate allure-results --clean -o ../allure-report
       
+      - name: Verify Allure Report Structure
+        if: always()
+        run: |
+          echo "Checking allure-report directory structure:"
+          ls -la allure-report/
+          if [ ! -f "allure-report/index.html" ]; then
+            echo "ERROR: index.html not found in allure-report!"
+            exit 1
+          fi
+          echo "index.html found successfully"
+      
+      - name: Add .nojekyll file
+        if: always()
+        run: |
+          touch allure-report/.nojekyll
+          echo "Added .nojekyll file to prevent Jekyll processing"
+      
       - name: Deploy to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
