@@ -1,4 +1,0 @@
-Valid login successful
-Add to Cart button 3 not visible, skipping.
-Add to Cart button 4 not visible, skipping.
-Add to Cart button 5 not visible, skipping.

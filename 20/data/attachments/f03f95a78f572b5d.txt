@@ -1,3 +1,0 @@
-Valid login successful
-Logout successful
-Logout validation successful

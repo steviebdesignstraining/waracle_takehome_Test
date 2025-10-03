@@ -1,2 +1,0 @@
-Performance glitch user login validated successfully
-Load time: 148.09999999997672ms

@@ -1,6 +1,0 @@
-Running test case: Valid user login
-Running test case: Invalid email format
-Running test case: Incorrect password
-Running test case: Empty email
-Running test case: Valid admin login
-Running test case: Visual admin login

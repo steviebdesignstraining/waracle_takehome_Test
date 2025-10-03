@@ -1,1 +1,0 @@
-This is a bug: problem_user sees 6 broken image(s)
