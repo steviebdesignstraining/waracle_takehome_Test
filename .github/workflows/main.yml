@@ -2,55 +2,62 @@ name: playwright-allure-report
 
 on: [push]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: 'npm'
-        cache-dependency-path: playwright/package-lock.json
-
-    - name: Install dependencies
-      working-directory: playwright
-      run: npm ci
-
-    - name: Install Playwright browsers
-      working-directory: playwright
-      run: npx playwright install --with-deps
-
-    - name: Run Playwright tests (with Allure)
-      working-directory: playwright
-      run: npm test
-
-    - name: Get Allure history
-      uses: actions/checkout@v3
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages
-
-    - name: Generate Allure report
-      uses: simple-elf/allure-report-action@master
-      if: always()
-      id: allure-report
-      with:
-        allure_results: playwright/allure-results
-        gh_pages: gh-pages
-        allure_report: playwright/allure-report
-        allure_history: allure-history
-
-    - name: Deploy Allure Report to GitHub Pages
-      if: always()
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: allure-history
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: playwright/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: playwright
+        run: npm ci
+      
+      - name: Install Playwright browsers
+        working-directory: playwright
+        run: npx playwright install --with-deps
+      
+      - name: Run Playwright tests (with Allure)
+        working-directory: playwright
+        run: npm test
+        continue-on-error: true
+      
+      - name: Get Allure history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+      
+      - name: Generate Allure report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: playwright/allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+      
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
